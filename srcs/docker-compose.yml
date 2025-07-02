@@ -1,5 +1,5 @@
 services:
-  db:
+  mariadb:
     image: inception/mariadb
     build: ./srcs/mariadb
     volumes:

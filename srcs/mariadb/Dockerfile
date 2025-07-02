@@ -11,4 +11,4 @@ RUN chmod +x /entrypoint.sh
 
 EXPOSE 3306
 ENTRYPOINT [ "/entrypoint.sh" ]
-# CMD ["bash"]
+CMD ["mariadbd", "--user=mysql", "--bind-address=0.0.0.0", "--skip-networking=0"]
