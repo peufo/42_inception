@@ -9,6 +9,7 @@ RUN mariadb-install-db --user=mysql --datadir=/var/lib/mysql
 COPY ./entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-EXPOSE 3306
+HEALTHCHECK --interval=1s --timeout=1s --start-period=1s --retries=10 CMD [ "mariadb-admin", "ping" ]
+
 ENTRYPOINT [ "/entrypoint.sh" ]
 CMD ["mariadbd", "--user=mysql", "--bind-address=0.0.0.0", "--skip-networking=0"]

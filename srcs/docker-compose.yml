@@ -1,7 +1,7 @@
 services:
   mariadb:
     image: inception/mariadb
-    build: ./srcs/mariadb
+    build: ./mariadb
     volumes:
       - wp-db:/var/lib/mysql
     env_file:
@@ -9,9 +9,10 @@ services:
     restart: always
   wordpress:
     image: inception/wordpress
-    build: ./srcs/wordpress
+    build: ./wordpress
     depends_on:
-      - mariadb
+      mariadb:
+        condition: service_healthy
     volumes:
       - wp-files:/var/www
     env_file:
@@ -19,11 +20,13 @@ services:
     restart: always
   web:
     image: inception/nginx
-    build: ./srcs/nginx
+    build: ./nginx
     depends_on:
-      - mariadb
+      - wordpress
+    volumes:
+      - wp-files:/var/www
     ports:
-      - 8080:80
+      - 443:443
 
 networks:
   default:
@@ -31,16 +34,14 @@ networks:
 
 volumes:
   wp-db:
-    driver: local
-    driver_opts:
-      # device: ~/data/db
-      device: /data/db
-      type: none
-      o: bind
+    # driver: local
+    # driver_opts:
+    #   device: ~/data/db
+    #   type: none
+    #   o: bind
   wp-files:
-    driver: local
-    driver_opts:
-      # device: ~/data/files
-      device: /data/files
-      type: none
-      o: bind
+    # driver: local
+    # driver_opts:
+    #   device: ~/data/files
+    #   type: none
+    #   o: bind
