@@ -24,13 +24,10 @@ COPY ./www.conf /etc/php83/php-fpm.d/
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 RUN chmod +x wp-cli.phar
 RUN mv wp-cli.phar /usr/local/bin/wp
-# RUN	mkdir -p /run/php && \
-#     chown www-data:www-data /run/php
 
 WORKDIR /var/www
 RUN wp core download
 
-EXPOSE 9000
 COPY ./entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 ENTRYPOINT [ "/entrypoint.sh" ]
