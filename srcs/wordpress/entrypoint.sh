@@ -21,8 +21,12 @@ else
         --admin_email="$WP_ADMIN_EMAIL"
 fi
 
-wp user create $WP_BASIC_USER $WP_BASIC_EMAIL \
-    --user_pass="$WP_BASIC_PASSWORD" \
-    --role=editor
+if wp user get $WP_BASIC_USER &> /dev/null; then
+    echo "Wordpress user editor $WP_BASIC_USER already exist"
+else
+    wp user create $WP_BASIC_USER $WP_BASIC_EMAIL \
+        --user_pass="$WP_BASIC_PASSWORD" \
+        --role=editor
+fi
 
 exec "$@"
