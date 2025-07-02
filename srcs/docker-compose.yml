@@ -6,15 +6,24 @@ services:
       - wp-db:/var/lib/mysql
     env_file:
       - .env
-    
-  # wp:
-  #   image: inception/wordpress
-  #   build: ./srcs/wordpress
-  # web:
-  #   image: inception/nginx
-  #   build: ./srcs/nginx
-  #   ports:
-  #     - 8080:80
+    restart: always
+  wordpress:
+    image: inception/wordpress
+    build: ./srcs/wordpress
+    depends_on:
+      - mariadb
+    volumes:
+      - wp-files:/var/www
+    env_file:
+      - .env
+    restart: always
+  web:
+    image: inception/nginx
+    build: ./srcs/nginx
+    depends_on:
+      - mariadb
+    ports:
+      - 8080:80
 
 networks:
   default:
@@ -22,14 +31,16 @@ networks:
 
 volumes:
   wp-db:
-    # driver: local
-    # driver_opts:
-    #   device: ~/data/db
-    #   type: none
-    #   o: bind
+    driver: local
+    driver_opts:
+      # device: ~/data/db
+      device: /data/db
+      type: none
+      o: bind
   wp-files:
-    # driver: local
-    # driver_opts:
-    #   device: ~/data/files
-    #   type: none
-    #   o: bind
+    driver: local
+    driver_opts:
+      # device: ~/data/files
+      device: /data/files
+      type: none
+      o: bind

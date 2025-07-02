@@ -14,6 +14,6 @@ wp core install \
     --admin_password="$WP_ADMIN_PASSWORD" \
     --admin_email="$WP_ADMIN_EMAIL"
 
-wp user create $WP_BASIC_USER $WP_BASIC_EMAIL --user_pass="$WP_BASIC_PASSWORD"
+wp user create $WP_BASIC_USER $WP_BASIC_EMAIL --user_pass="$WP_BASIC_PASSWORD" --allow-root
 
 exec "$@"

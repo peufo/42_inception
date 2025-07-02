@@ -14,17 +14,22 @@ RUN apk add php84-iconv
 RUN apk add php84-sodium
 RUN apk add php83-xml
 RUN apk add php83-zip
+
+RUN adduser -S www-data
+RUN adduser www-data www-data
+
 COPY ./php.ini /etc/php83/conf.d/
-# COPY ./www.conf /etc/php83/php-fpm.d/
+COPY ./www.conf /etc/php83/php-fpm.d/
 
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 RUN chmod +x wp-cli.phar
 RUN mv wp-cli.phar /usr/local/bin/wp
-RUN wp core download --path=/wp
+WORKDIR /var/www
+RUN wp core download
 
+EXPOSE 9000
 COPY ./entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
-
 ENTRYPOINT [ "/entrypoint.sh" ]
 
 CMD [ "bash" ]
