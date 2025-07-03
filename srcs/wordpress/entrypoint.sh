@@ -29,4 +29,8 @@ else
         --role=editor
 fi
 
+wp plugin install redis-cache --activate
+wp config set 'WP_REDIS_HOST' 'redis'
+wp redis enable
+
 exec "$@"

@@ -14,6 +14,7 @@ RUN apk add php83-iconv
 RUN apk add php83-sodium
 RUN apk add php83-xml
 RUN apk add php83-zip
+RUN apk add php83-tokenizer
 
 RUN adduser -S www-data
 RUN adduser www-data www-data
