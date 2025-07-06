@@ -13,6 +13,8 @@ services:
     depends_on:
       mariadb:
         condition: service_healthy
+      redis: 
+        condition: service_started
     volumes:
       - wp-files:/var/www
     env_file:
@@ -21,18 +23,18 @@ services:
   web:
     image: inception/nginx
     build: ./nginx
+    secrets:
+      - site.key
+      - site.crt
     depends_on:
       - wordpress
-      - redis
     volumes:
       - wp-files:/var/www
     ports:
       - 443:443
-
   redis:
     image: inception/redis
     build: ./redis
-
 
 networks:
   default:
@@ -51,3 +53,9 @@ volumes:
     #   device: ~/data/files
     #   type: none
     #   o: bind
+
+secrets:
+  site.key:
+    file: ../secrets/site.key
+  site.crt:
+    file: ../secrets/site.crt
