@@ -3,9 +3,10 @@ RUN apk add bash
 RUN apk add wget
 RUN apk add php83 
 RUN apk add php83-fpm
+RUN apk add php83-session
+RUN apk add php83-mysqli
 # RUN apk add php83-openssl
 # RUN apk add php83-phar
-# RUN apk add php83-mysqli
 # RUN apk add php83-dom
 # RUN apk add php83-exif
 # RUN apk add php83-fileinfo

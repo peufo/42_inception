@@ -36,13 +36,13 @@ services:
   redis:
     image: inception/redis
     build: ./redis
-  ftp:
-    image: inception/ftp
-    build: ./ftp
-    volumes:
-      - wp-files:/var/www
-    ports:
-      - 20:20
+  # ftp:
+  #   image: inception/ftp
+  #   build: ./ftp
+  #   volumes:
+  #     - wp-files:/var/www
+  #   ports:
+  #     - 20:20
   adminer:
     image: inception/adminer
     build: ./adminer
