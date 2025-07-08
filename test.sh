@@ -1,9 +1,9 @@
+source "srcs/.env"
 
 test() {
-    local DOMAIN="jvoisard.42.fr"
 
     # NGINX + WORDPRESS + MARIADB
-    local RESPONSE=$(curl --cacert ./secrets/site.crt "https://$DOMAIN")
+    local RES=$(curl -s --cacert ./secrets/site.crt "https://$WP_SITE_URL")
     if [ $? -eq 0 ] ; then
         success NGINX server OK
     else
@@ -11,23 +11,24 @@ test() {
     fi
 
     # REDIS
-    local REDIS_ENABLE=$(echo "$RESPONSE" | grep "Performance optimized by Redis Object Cache.")
+    local REDIS_ENABLE=$(echo "$RES" | grep "Performance optimized by Redis Object Cache.")
     if [ "$REDIS_ENABLE" != "" ] ; then
         success REDIS OK
     else
         error REDIS NOK
     fi
 
-    # FTP SERVER
-    if nc -zv jvoisard.42.fr 20 ; then
-        success FTP server OK
+    # FTP Server
+    local RES=$(lftp -u "$WP_ADMIN_USER,$WP_ADMIN_PASSWORD" -e "set ssl:ca-file $PWD/secrets/site.crt; ls; bye" "$WP_SITE_URL")
+    if [ $? -eq 0 ] ; then
+        success FTP server OK, $(echo "$RES" | wc -l) files listed from server
     else
-        error FTP server NOK
+        success FTP server NOK
     fi
 
     # ADMINER
-    RESPONSE=$(curl --cacert ./secrets/site.crt "https://$DOMAIN/adminer-5.3.0.php")
-    local ADMINER_ENABLE=$(echo "$RESPONSE" | grep "<title>Login - Adminer</title>")
+    RES=$(curl -s --cacert ./secrets/site.crt "https://$WP_SITE_URL/adminer-5.3.0.php")
+    local ADMINER_ENABLE=$(echo "$RES" | grep "<title>Login - Adminer</title>")
     if [ "$ADMINER_ENABLE" != "" ] ; then
         success ADMINER service OK
     else

@@ -13,6 +13,8 @@ init:
 		-keyout secrets/site.key \
 		-out secrets/site.crt \
 		-subj "/C=CH/L=Porrentruy/O=DevVoisard/CN=jvoisard.42.fr"
+build:
+	docker compose -f srcs/docker-compose.yml up --build
 
 clean:
 	docker compose -f srcs/docker-compose.yml down
@@ -23,8 +25,8 @@ test:
 fclean: clean
 	rm -rf ~/data
 	rm -rf ./secrets
-	docker volume rm -f srcs_wp-db
-	docker volume rm -f srcs_wp-files
+	docker volume rm -f inception_wp-db
+	docker volume rm -f inception_wp-files
 	docker system prune -af
 
 re: fclean all
