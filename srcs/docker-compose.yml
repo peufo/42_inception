@@ -1,3 +1,5 @@
+name: inception
+
 services:
   mariadb:
     image: inception/mariadb
@@ -39,10 +41,18 @@ services:
   ftp:
     image: inception/ftp
     build: ./bonus/ftp
+    secrets:
+      - site.key
+      - site.crt
+    depends_on:
+      wordpress:
+        condition: service_healthy
+    env_file:
+      - .env
     volumes:
       - wp-files:/var/www
     ports:
-      - 20:20
+      - 21:21
   adminer:
     image: inception/adminer
     build: ./bonus/adminer

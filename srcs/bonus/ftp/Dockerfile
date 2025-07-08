@@ -4,5 +4,8 @@ RUN apk add vsftpd
 
 COPY vsftpd.conf /etc/vsftpd/vsftpd.conf
 
-WORKDIR /var/www
+COPY ./entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+ENTRYPOINT [ "/entrypoint.sh" ]
 CMD [ "vsftpd" ]
