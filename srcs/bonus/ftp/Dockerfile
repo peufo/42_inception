@@ -4,4 +4,5 @@ RUN apk add vsftpd
 
 COPY vsftpd.conf /etc/vsftpd/vsftpd.conf
 
+WORKDIR /var/www
 CMD [ "vsftpd" ]

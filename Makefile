@@ -12,16 +12,19 @@ init:
 	openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 		-keyout secrets/site.key \
 		-out secrets/site.crt \
-		-subj "/C=CH/L=Porrentruy/O=DevVoisard/CN=jvoisard"
+		-subj "/C=CH/L=Porrentruy/O=DevVoisard/CN=jvoisard.42.fr"
 
 clean:
 	docker compose -f srcs/docker-compose.yml down
 
+test:
+	./test.sh
+
 fclean: clean
 	rm -rf ~/data
 	rm -rf ./secrets
-	docker volume rm -f wp-db
-	docker volume rm -f wp-files
+	docker volume rm -f srcs_wp-db
+	docker volume rm -f srcs_wp-files
 	docker system prune -af
 
 re: fclean all

@@ -35,17 +35,17 @@ services:
       - 443:443
   redis:
     image: inception/redis
-    build: ./redis
-  # ftp:
-  #   image: inception/ftp
-  #   build: ./ftp
-  #   volumes:
-  #     - wp-files:/var/www
-  #   ports:
-  #     - 20:20
+    build: ./bonus/redis
+  ftp:
+    image: inception/ftp
+    build: ./bonus/ftp
+    volumes:
+      - wp-files:/var/www
+    ports:
+      - 20:20
   adminer:
     image: inception/adminer
-    build: ./adminer
+    build: ./bonus/adminer
 
 networks:
   default:
