@@ -57,6 +57,17 @@ services:
     ports:
       - 21:21
       - 10000-10010:10000-10010
+  sftp:
+    image: inception/sftp
+    build: ./bonus/sftp
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - wp-files:/var/www
+      - wp-db:/var/lib/mysql
+    ports:
+      - 22:22
   adminer:
     image: inception/adminer
     build: ./bonus/adminer

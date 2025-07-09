@@ -9,10 +9,12 @@ init:
 	mkdir -p ~/data/db
 	mkdir -p ~/data/files
 	mkdir -p ./secrets
+	chmod 0700 ./secrets
 	openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 		-keyout secrets/site.key \
 		-out secrets/site.crt \
 		-subj "/C=CH/L=Porrentruy/O=DevVoisard/CN=jvoisard.42.fr"
+
 build:
 	docker compose -f srcs/docker-compose.yml up --build
 
