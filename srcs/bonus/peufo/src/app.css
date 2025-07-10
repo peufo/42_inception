@@ -1,0 +1,10 @@
+@import "tailwindcss";
+@plugin '@tailwindcss/forms';
+@plugin '@tailwindcss/typography';
+@plugin "daisyui" {
+  themes: cupcake --default, cupcake --preferslight, dim --prefersdark;
+}
+
+:root {
+  --font-sans: "Nunito", ui-sans-serif, system-ui, sans-serif;
+}

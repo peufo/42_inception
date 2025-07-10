@@ -72,6 +72,10 @@ services:
     image: inception/adminer
     build: ./bonus/adminer
     restart: on-failure:3
+  peufo:
+    image: inception/peufo
+    build: ./bonus/peufo
+    restart: always
 
 networks:
   default:
