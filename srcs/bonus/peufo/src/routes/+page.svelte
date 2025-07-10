@@ -58,11 +58,11 @@
 
     <section class="prose flex gap-4 items-center">
         <p>
-            J’ai conçu <a href="troc.io">Troc.io</a>, une plateforme de gestion
-            de magasins éphémères intégrant un système de point de vente avancé,
-            ainsi qu’un espace dédié aux clients et aux fournisseurs.
-            L’application a été utilisée lors d’une dizaine d’événements et
-            compte aujourd’hui plus de 1 800 utilisateurs.
+            J’ai conçu <a href="https://troc.io" target="_blank">Troc.io</a>,
+            une plateforme de gestion de magasins éphémères intégrant un système
+            de point de vente avancé, ainsi qu’un espace dédié aux clients et
+            aux fournisseurs. L’application a été utilisée lors d’une dizaine
+            d’événements et compte aujourd’hui plus de 1 800 utilisateurs.
         </p>
 
         <img src="/peufo/trocio.ico" alt="Logo Troc.io" class="mt-0 h-24" />
@@ -72,10 +72,10 @@
         <img src="/peufo/benevio.svg" alt="Logo benev.io" class="h-32" />
 
         <p class="mt-0">
-            J’ai créé <a href="benev.io">Benev.io</a>, une plateforme de gestion
-            de bénévoles. Elle facilite l’organisation, le suivi et la
-            coordination des équipes bénévoles, et compte aujourd’hui près de 1
-            400 utilisateurs.
+            J’ai créé <a href="https://benev.io" target="_blank">Benev.io</a>,
+            une plateforme de gestion de bénévoles. Elle facilite
+            l’organisation, le suivi et la coordination des équipes bénévoles,
+            et compte aujourd’hui près de 1 400 utilisateurs.
         </p>
     </section>
 </div>

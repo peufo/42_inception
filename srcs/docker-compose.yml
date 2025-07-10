@@ -4,7 +4,7 @@ services:
   mariadb:
     image: inception/mariadb
     build: ./mariadb
-    restart: on-failure:3
+    restart: on-failure:10
     volumes:
       - wp-db:/var/lib/mysql
     env_file:
@@ -12,7 +12,7 @@ services:
   wordpress:
     image: inception/wordpress
     build: ./wordpress
-    restart: on-failure:3
+    restart: on-failure:10
     depends_on:
       mariadb:
         condition: service_healthy
@@ -25,7 +25,7 @@ services:
   nginx:
     image: inception/nginx
     build: ./nginx
-    restart: on-failure:3
+    restart: on-failure:10
     secrets:
       - site.key
       - site.crt
@@ -39,7 +39,7 @@ services:
   redis:
     image: inception/redis
     build: ./bonus/redis
-    restart: on-failure:3
+    restart: on-failure:10
   ftp:
     image: inception/ftp
     build: ./bonus/ftp
@@ -60,7 +60,7 @@ services:
   sftp:
     image: inception/sftp
     build: ./bonus/sftp
-    restart: always
+    restart: on-failure:10
     env_file:
       - .env
     volumes:
@@ -71,11 +71,11 @@ services:
   adminer:
     image: inception/adminer
     build: ./bonus/adminer
-    restart: on-failure:3
+    restart: on-failure:10
   peufo:
     image: inception/peufo
     build: ./bonus/peufo
-    restart: always
+    restart: on-failure:10
 
 networks:
   default:
