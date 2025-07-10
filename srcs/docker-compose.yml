@@ -22,7 +22,7 @@ services:
       - wp-files:/var/www
     env_file:
       - .env
-  web:
+  nginx:
     image: inception/nginx
     build: ./nginx
     restart: on-failure:3
