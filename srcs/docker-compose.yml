@@ -83,17 +83,17 @@ networks:
 
 volumes:
   wp-db:
-    # driver: local
-    # driver_opts:
-    #   device: ~/data/db
-    #   type: none
-    #   o: bind
+    driver: local
+    driver_opts:
+      device: ~/data/db
+      type: none
+      o: bind
   wp-files:
-    # driver: local
-    # driver_opts:
-    #   device: ~/data/files
-    #   type: none
-    #   o: bind
+    driver: local
+    driver_opts:
+      device: ~/data/files
+      type: none
+      o: bind
 
 secrets:
   site.key:
