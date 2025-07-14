@@ -85,13 +85,13 @@ volumes:
   wp-db:
     driver: local
     driver_opts:
-      device: ~/data/db
+      device: /home/jvoisard/data/db
       type: none
       o: bind
   wp-files:
     driver: local
     driver_opts:
-      device: ~/data/files
+      device: /home/jvoisard/data/files
       type: none
       o: bind
 
