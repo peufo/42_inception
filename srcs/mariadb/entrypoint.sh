@@ -1,9 +1,11 @@
 #!/bin/bash
 
-mariadbd --user=mysql &
+INIT_PORT=3307
+
+mariadbd --user=mysql -p $INIT_PORT &
 pid="$!"
 
-while ! mariadb-admin ping ; do
+while ! mariadb-admin -p $INIT_PORT ping ; do
     sleep 1
 done
 
@@ -17,10 +19,10 @@ if [[ -z "$DB_USER" ]]; then
     exit 1
 fi
 
-mariadb -e "CREATE DATABASE IF NOT EXISTS ${DB_NAME};"
-mariadb -e "CREATE USER IF NOT EXISTS '${DB_USER}'@'%' IDENTIFIED BY '${DB_PASSWORD}';"
-mariadb -e "GRANT ALL PRIVILEGES ON ${DB_NAME}.* TO '${DB_USER}'@'%' WITH GRANT OPTION;"
-mariadb -e "FLUSH PRIVILEGES;"
+mariadb -p $INIT_PORT -e "CREATE DATABASE IF NOT EXISTS ${DB_NAME};"
+mariadb -p $INIT_PORT -e "CREATE USER IF NOT EXISTS '${DB_USER}'@'%' IDENTIFIED BY '${DB_PASSWORD}';"
+mariadb -p $INIT_PORT -e "GRANT ALL PRIVILEGES ON ${DB_NAME}.* TO '${DB_USER}'@'%' WITH GRANT OPTION;"
+mariadb -p $INIT_PORT -e "FLUSH PRIVILEGES;"
 
 kill -9 "$pid"
 wait "$pid"
